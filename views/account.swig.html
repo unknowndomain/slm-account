@@ -1,0 +1,65 @@
+{% extends '../../../views/base.swig.html' %}
+{% block content %}
+<h2>Account</h2>
+<form method="POST" role="form">
+    <input type="hidden" name="_csrf" value="{{ token }}" />
+    <h3>Card ID</h3>
+    <p>This is the string representation of the NFC card you use. For example your Oyster card. You can find this by using an NFC enabled device. If you are unable to get the ID of your card then please ask another member or the Google Group to help you out.</p>
+    <input type="text" name="card_id" value="{{ user.card_id|default('') }}" placeholder="abcdef12345" />
+    <button type="submit" class="btn btn-primary">Update</button>
+    <h3>Makerspace Wiki Access</h3>
+    <!--
+    <p>By pressing this button it will create your account if you haven't already created one. You will then be able to login with your Persona account.</p>
+    <input type="submit" class="btn btn-primary" name="wiki" value="Create Wiki Account" />
+    -->
+    <p><strong>Coming soon.</strong></p>
+    <h3>Persona</h3>
+    <p><a href="https://login.persona.org/about">Persona</a> is an authorisation system provided by Mozilla. <a href="https://login.persona.org/">Manage Persona</a> <small><a href="https://support.mozilla.org/en-US/kb/how-do-i-manage-my-persona-account">(help)</a></small></p>
+    <p>Be aware that changing your e-mail is not currently supported and you may lose access to your account.</p>
+    <p>Your current e-mail address in use is: <b>{{ email }}</b></p>
+    <p></p>
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="https://login.persona.org/include.js"></script>
+<script>
+var login_button = document.querySelector("#persona-login");
+if (login_button) {
+  login_button.addEventListener("click", function() {
+        navigator.id.request();
+    }, false);
+}
+
+navigator.id.watch({
+  loggedInUser: {% if email %}'{{ email }}'{% else %}null{% endif %},
+  onlogin: function(assertion) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/auth/verify", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.addEventListener("loadend", function(e) {
+      var data = JSON.parse(this.responseText);
+      if (data && data.status === "okay") {
+        console.log("You have been logged in as: " + data.email);
+        window.location.reload(true);
+      }
+    }, false);
+
+    xhr.send(JSON.stringify({
+      assertion: assertion
+    }));
+  },
+  onlogout: function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/auth/logout", true);
+    xhr.addEventListener("loadend", function(e) {
+      console.log("User has logged out.");
+      window.location.reload(true);
+    });
+    xhr.send();
+  }
+});
+
+
+</script>
+{% endblock %}
