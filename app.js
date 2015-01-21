@@ -1,5 +1,6 @@
-var express = require('express'),
-    _ = require("underscore");
+var express = require( 'express' ),
+    _ = require( 'underscore' ),
+    request = require( 'request' );
 
 module.exports = {
     "title": "Account",
