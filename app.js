@@ -50,6 +50,34 @@ module.exports = {
                     });
                 } else if (req.body.wiki) {
                     // create wiki account
+                } else if (req.body.slack) {
+                    var name = user.name.split(' ');
+                    request.post( {
+                        url: config.slack.url + 'users.admin.invite?t=' + new Date().getTime(),
+                        json: true,
+                        form: {
+                            first_name: name[0],
+                            last_name: name[1],
+                            email: user.email,
+                            token: config.slack.token,
+                            set_active: true,
+                            _attempts: 1
+                        }
+                    }, function( err, response, body ) {
+                        if ( body.ok ) {
+                            res.locals.flash("success", "Created.", "Slack invite has been sent to your email address.");
+                            res.render("account", {user: user});
+                        } else {
+                            if ( body.error == 'already_in_team' ) {
+                                res.locals.flash("danger", "Duplicate.", "You already have a team Slack account at this email address.");
+                            } else if ( body.error == 'sent_recently' ) {
+                                res.locals.flash("warning", "Invite sent.", "We've already sent you an invite to Slack, please check your email.");
+                            } else {
+                                res.locals.flash("danger", "Failed.", "Something's gone wrong or other #" + body.error + ".");
+                            } 
+                            res.render("account", {user: user});
+                        }
+                    } );
                 }
             }
             else {
