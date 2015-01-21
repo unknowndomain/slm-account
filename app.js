@@ -48,8 +48,7 @@ module.exports = {
                             res.send(500, "Database error. This has been logged but please report the issue with the code SLME003.");
                         }
                     });
-                }
-                else if (req.body.wiki) {
+                } else if (req.body.wiki) {
                     // create wiki account
                 }
             }
@@ -57,7 +56,7 @@ module.exports = {
                 res.locals.flash("danger", "Not logged in.", "You are not logged in.");
                 res.redirect("/"); // could probably be handled better or elsewhere
             }
-        });
+        } );
         return app;
     }
 }
