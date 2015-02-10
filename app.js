@@ -70,9 +70,11 @@ module.exports = {
                         } else {
                             if ( body.error == 'already_in_team' ) {
                                 res.locals.flash("danger", "Duplicate.", "You already have a team Slack account at this email address.");
-                            } else if ( body.error == 'sent_recently' ) {
+                            }
+                            else if ( body.error == 'sent_recently' ) {
                                 res.locals.flash("warning", "Invite sent.", "We've already sent you an invite to Slack, please check your email.");
-                            } else {
+                            }
+                            else {
                                 res.locals.flash("danger", "Failed.", "Something's gone wrong or other #" + body.error + ".");
                             } 
                             res.render("account", {user: user});
