@@ -67,7 +67,8 @@ module.exports = {
                         if ( body.ok ) {
                             res.locals.flash("success", "Created.", "Slack invite has been sent to your email address.");
                             res.render("account", {user: user});
-                        } else {
+                        }
+                        else {
                             if ( body.error == 'already_in_team' ) {
                                 res.locals.flash("danger", "Duplicate.", "You already have a team Slack account at this email address.");
                             }
