@@ -34,7 +34,7 @@ module.exports = {
         app.post("/", function (req, res) {
             var user = res.locals.user;
             if (user) {
-                if (user.card_id != req.body.card_id) {
+                if (req.body.card_id) {
                     user.card_id = req.body.card_id;
                     user.save(function (err, user) {
                         // must handle validation errors
@@ -54,7 +54,7 @@ module.exports = {
                 }
                 else if (req.body.slack) {
                     if (!user.is_active()) {
-                        res.locals.flash("warning", "Insufficient Membership.", "Unfortunately your account does not have rights to this page at the moment. If you believe this is in error please contact a trustee.");
+                        res.locals.flash("warning", "Insufficient Membership.", "Unfortunately your account does not have rights to access Slack at the moment. If you believe this is in error please contact a trustee.");
                         res.render("account", {user: user});
                     }
                     else {
