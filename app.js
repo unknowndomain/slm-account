@@ -48,9 +48,11 @@ module.exports = {
                             res.send(500, "Database error. This has been logged but please report the issue with the code SLME003.");
                         }
                     });
-                } else if (req.body.wiki) {
+                }
+                else if (req.body.wiki) {
                     // create wiki account
-                } else if (req.body.slack) {
+                }
+                else if (req.body.slack) {
                     var name = user.name.split(' ');
                     request.post( {
                         url: config.slack.url + 'users.admin.invite?t=' + new Date().getTime(),
