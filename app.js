@@ -34,7 +34,7 @@ module.exports = {
         app.post("/", function (req, res) {
             var user = res.locals.user;
             if (user) {
-                if (req.body.card_id) {
+                if (req.body.card) {
                     user.card_id = req.body.card_id;
                     user.save(function (err, user) {
                         // must handle validation errors
