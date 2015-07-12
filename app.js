@@ -35,25 +35,26 @@ module.exports = {
             var user = res.locals.user;
             if (user) {
                 if (req.body.card) {
-                    if (config.banned_cards.indexOf(req.body.card_id) < 0) {
-                        user.card_id = req.body.card_id;
-                        user.save(function (err, user) {
-                            // must handle validation errors
-                            if (!err) {
-                                res.locals.flash("success", "Updated.", "Card ID updated successfully.");
-                                res.render("account", {user: user});
-                            }
-                            else {
-                                console.log("Could not save entry because: " + err);
-                                console.log("Data: " + user);
-                                res.send(500, "Database error. This has been logged but please report the issue with the code SLME003.");
-                            }
-                        });
-                    }
-                    else {
-                        res.locals.flash("danger", "Banned Card ID.", "This card ID has been banned as it is not unique. Please use another card.");
-                        res.render("account", {user: user});
-                    }
+                    // Removed for now as card sign up is being done manually. 2015-07-12
+                    //if (config.banned_cards.indexOf(req.body.card_id) < 0) {
+                        //user.card_id = req.body.card_id;
+                        //user.save(function (err, user) {
+                            //// must handle validation errors
+                            //if (!err) {
+                                //res.locals.flash("success", "Updated.", "Card ID updated successfully.");
+                                //res.render("account", {user: user});
+                            //}
+                            //else {
+                                //console.log("Could not save entry because: " + err);
+                                //console.log("Data: " + user);
+                                //res.send(500, "Database error. This has been logged but please report the issue with the code SLME003.");
+                            //}
+                        //});
+                    //}
+                    //else {
+                        //res.locals.flash("danger", "Banned Card ID.", "This card ID has been banned as it is not unique. Please use another card.");
+                        //res.render("account", {user: user});
+                    //}
                 }
                 else if (req.body.wiki) {
                     // create wiki account
