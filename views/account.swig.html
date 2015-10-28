@@ -9,14 +9,11 @@
     <p>Be aware that changing your e-mail is not currently supported and you may lose access to your account.</p>
     <p>Your current e-mail address in use is: <b>{{ email }}</b></p> -->
     
-    <!--
-    Removed for now as card sign up is being done manually. 2015-07-12
-    <h3>Card ID</h3>
-    <p>This is the string representation of the NFC card you use. For example your Oyster card. You can find this by using an NFC enabled device. If you are unable to get the ID of your card then please ask another member or the Google Group to help you out.</p>
-    <label for="card_id">Card ID:</label>
-    <input type="text" label="card_id" name="card_id" value="{{ user.card_id|default('') }}" placeholder="Example: abcdef12345" />
+    <h3>Key Fob</h3>
+    <p>This is the ID number of your red key fob.</p>
+    <label for="card_id">ID:</label>
+    <input type="text" label="card_id" name="card_id" value="{{ user.card_id|default('') }}" />
     <input type="submit" class="btn btn-primary" name="card" value="Update" />
-    -->
     
     <h3>Slack Access</h3>
     <p>By pressing this button it will create your account if you haven't already created one. You will then be able to login with your Persona account.</p>
