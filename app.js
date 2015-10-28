@@ -74,7 +74,7 @@ module.exports = {
                             }
                             else {
                                 if ( body.error == 'already_in_team' ) {
-                                    res.locals.flash("danger", "Duplicate.", "You already have a team Slack account at this email address.");
+                                    res.locals.flash("danger", "Duplicate.", "You already have a Slack account at this email address.");
                                 }
                                 else if ( body.error == 'sent_recently' ) {
                                     res.locals.flash("warning", "Invite sent.", "We've already sent you an invite to Slack, please check your email.");
